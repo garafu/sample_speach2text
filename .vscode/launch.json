@@ -12,7 +12,12 @@
         "<node_internals>/**"
       ],
       "program": "${workspaceFolder}/src/index.js",
-      "envFile": "${workspaceFolder}/.env"
+      "envFile": "${workspaceFolder}/.env",
+      "args": [
+        "あ",
+        "う",
+        "お"
+      ]
     }
   ]
 }
