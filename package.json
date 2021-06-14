@@ -1,0 +1,26 @@
+{
+  "name": "sample_speach2text",
+  "version": "0.0.1",
+  "description": "Sample Speach to Text API Application.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/garafu/sample_speach2text.git"
+  },
+  "author": "Akinari Tsugo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/garafu/sample_speach2text/issues"
+  },
+  "homepage": "https://github.com/garafu/sample_speach2text#readme",
+  "dependencies": {
+    "aws-sdk": "^2.927.0",
+    "iconv-lite": "^0.6.3"
+  },
+  "devDependencies": {
+    "eslint": "^7.28.0"
+  }
+}
