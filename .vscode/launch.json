@@ -14,9 +14,10 @@
       "program": "${workspaceFolder}/src/index.js",
       "envFile": "${workspaceFolder}/.env",
       "args": [
-        "あ",
-        "う",
-        "お"
+        // "/path/to/voice.mp3",
+        "D:/Work/GitHub/sample_speach2text/tmp/ibm/public_audio_ja-JP_Broadband-sample.wav",
+        "音声",
+        "認識"
       ]
     }
   ]

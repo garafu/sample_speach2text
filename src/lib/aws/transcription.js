@@ -1,18 +1,20 @@
-const AWS = require("aws-sdk");
-AWS.config.update({
-  credentials: new AWS.SharedIniFileCredentials({ profile: "default" }),
-  region: "ap-northeast-1"
-});
-
+const { PROFILE, REGION } = require("../../config/app.config.js").CREDENTIALS;
+// const AWS = require("aws-sdk");
+// AWS.config.update({
+//   credentials: new AWS.SharedIniFileCredentials({ profile: PROFILE }),
+//   region: REGION
+// });
+const aws = require("./aws.js");
 
 /**
  * 
  * @param {string} location 
- * @returns 
+ * @returns {string} Job name
  */
 var startJob = async function (location) {
   return new Promise((resolve, reject) => {
-    var transcribeService = new AWS.TranscribeService({ apiVersion: "2017-10-26" });
+    // var transcribeService = new AWS.TranscribeService({ apiVersion: "2017-10-26" });
+    var transcribeService = aws.createTranscribeServiceInstance();
 
     // See also: 
     // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/TranscribeService.html#startTranscriptionJob-property
@@ -44,11 +46,12 @@ var startJob = async function (location) {
 /**
  * 
  * @param {string} name Transcription Job Name
- * @returns {Promise<string>} Transcripted file uri
+ * @returns {AWS.TranscriptionJob} Transcription job data.
  */
 var getJob = async function (name) {
   return new Promise((resolve, reject) => {
-    var transcribeService = new AWS.TranscribeService({ apiVersion: "2017-10-26" });
+    // var transcribeService = new AWS.TranscribeService({ apiVersion: "2017-10-26" });
+    var transcribeService = aws.createTranscribeServiceInstance();
 
     // See also:
     // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/TranscribeService.html#getTranscriptionJob-property
@@ -73,24 +76,27 @@ var getJob = async function (name) {
 
 
 /**
- * 
+ * Poll until job complete.
  * @param {string} name Translation Job Name
  * @returns {Promise<string>} Transcripted file uri
  */
 var pollGetJob = async function (name) {
-  var data, status;
-  data = await getJob(name);
-  status = data.TranscriptionJob.TranscriptionJobStatus;
+  return new Promise(async (resolve, reject) => {
+    var data, status;
 
-  return new Promise((resolve, reject) => {
+    // Get job info.
+    data = await getJob(name);
+    status = data.TranscriptionJob.TranscriptionJobStatus;
+
+    // Switch by job status.
     switch (status) {
-      case "FAILED":
+      case "FAILED":    // ERROR
         reject(data.TranscriptionJob.FailureReason);
         break;
-      case "COMPLETED":
+      case "COMPLETED": // SUCCESS
         resolve(data.TranscriptionJob.Transcript.TranscriptFileUri);
         break;
-      default:
+      default:          // RE-TRY
         setTimeout(async () => {
           try {
             var uri = await pollGetJob(name);
