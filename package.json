@@ -1,11 +1,11 @@
 {
-  "name": "sample_speach2text",
+  "name": "speach2text",
   "version": "0.0.1",
   "description": "Sample Speach to Text API Application.",
   "main": "src/index.js",
   "scripts": {
     "test": "jest",
-    "build": "nexe -i ./src/index.js -o ./dist/speach2text -t 14.15.3"
+    "build": "pkg ."
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,17 @@
   "devDependencies": {
     "eslint": "^7.28.0",
     "jest": "^27.0.4",
-    "nexe": "^3.3.6"
+    "pkg": "^5.2.1"
+  },
+  "bin": {
+    "speach2text": "./src/index.js"
+  },
+  "pkg": {
+    "targets": [
+      "node14-win",
+      "node14-mac",
+      "node14-linux"
+    ],
+    "outputPath": "./dist"
   }
 }
