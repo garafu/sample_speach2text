@@ -3,13 +3,12 @@ const logger = require("../log/logger.js");
 const aws = require("./aws.js");
 
 /**
- * 
+ * Start TranscribeService Job.
  * @param {string} location 
  * @returns {string} Job name
  */
 var startJob = async function (location) {
   return new Promise((resolve, reject) => {
-    // var transcribeService = new AWS.TranscribeService({ apiVersion: "2017-10-26" });
     var transcribeService = aws.createTranscribeServiceInstance();
 
     // See also: 
@@ -19,23 +18,17 @@ var startJob = async function (location) {
         MediaFileUri: location
       },
       TranscriptionJobName: `abc-speach2text-poc-transcriptionjob-${(new Date()).getTime()}`,
-      // ContentRedaction: {
-      //   RedactionOutput: "redacted_and_unredacted",
-      //   RedactionType: "PII"
-      // },
       IdentifyLanguage: false,
       LanguageCode: "ja-JP"
     };
 
     transcribeService.startTranscriptionJob(params, (err, data) => {
       if (err) {
-        // console.log("TranscribeService: Job start error", err);
         logger.error("TranscribeService start job error: ", err.message);
         reject(err);
         return;
       }
       var jobName = data.TranscriptionJob.TranscriptionJobName;
-      // console.log("TranscribeService: Job start success");
       logger.info("Start transcribe job -> ", jobName);
       resolve(jobName);
     });
@@ -43,13 +36,12 @@ var startJob = async function (location) {
 };
 
 /**
- * 
+ * Get TranscribeService Job information.
  * @param {string} name Transcription Job Name
  * @returns {AWS.TranscriptionJob} Transcription job data.
  */
 var getJob = async function (name) {
   return new Promise((resolve, reject) => {
-    // var transcribeService = new AWS.TranscribeService({ apiVersion: "2017-10-26" });
     var transcribeService = aws.createTranscribeServiceInstance();
 
     // See also:
@@ -60,12 +52,10 @@ var getJob = async function (name) {
 
     transcribeService.getTranscriptionJob(params, (err, data) => {
       if (err) {
-        // console.log("TranscribeService: Get Job info error", err);
         logger.error("TranscribeService: get job info error: ", err.message);
         reject(err);
         return;
       }
-      // console.log("TranscribeService: Get Job info success", data);
       var jobName = data.TranscriptionJob.TranscriptionJobName;
       var status = data.TranscriptionJob.TranscriptionJobStatus;
       logger.info(`Get transcribe job status -> ${jobName}:${status}`);
