@@ -1,3 +1,4 @@
+require("dotenv").config();
 const transcription = require("./lib/transcript.js");
 const textsearch = require("./lib/textsearch.js");
 const output = require("./lib/output.js");

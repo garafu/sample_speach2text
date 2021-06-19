@@ -19,6 +19,7 @@
   "homepage": "https://github.com/garafu/sample_speach2text#readme",
   "dependencies": {
     "aws-sdk": "^2.927.0",
+    "dotenv": "^10.0.0",
     "iconv-lite": "^0.6.3",
     "log4js": "^6.3.0",
     "moment": "^2.29.1"
