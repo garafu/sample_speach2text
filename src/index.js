@@ -14,7 +14,7 @@ logger.info(`Start process with ... input:"${filepath}", keywords:${JSON.stringi
     var text, founds;
     text = await transcription.execute(filepath);
     founds = textsearch.execute(text, words);
-    output.execute(founds);
+    output.execute(text, words, founds);
   } catch (err) {
     logger.error("Process exit with: ", err.message);
   }
