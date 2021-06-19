@@ -19,7 +19,8 @@
   "homepage": "https://github.com/garafu/sample_speach2text#readme",
   "dependencies": {
     "aws-sdk": "^2.927.0",
-    "iconv-lite": "^0.6.3"
+    "iconv-lite": "^0.6.3",
+    "log4js": "^6.3.0"
   },
   "devDependencies": {
     "eslint": "^7.28.0",

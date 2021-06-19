@@ -1,3 +1,4 @@
+const logger = require("../logger.js");
 const aws = require("./aws.js");
 
 /**
@@ -27,12 +28,15 @@ var startJob = async function (location) {
 
     transcribeService.startTranscriptionJob(params, (err, data) => {
       if (err) {
-        console.log("TranscribeService: Job start error", err);
+        // console.log("TranscribeService: Job start error", err);
+        logger.error("TranscribeService start job error: ", err.message);
         reject(err);
         return;
       }
-      console.log("TranscribeService: Job start success");
-      resolve(data.TranscriptionJob.TranscriptionJobName);
+      var jobName = data.TranscriptionJob.TranscriptionJobName;
+      // console.log("TranscribeService: Job start success");
+      logger.info("Start transcribe job -> ", jobName);
+      resolve(jobName);
     });
   });
 };
@@ -55,11 +59,15 @@ var getJob = async function (name) {
 
     transcribeService.getTranscriptionJob(params, (err, data) => {
       if (err) {
-        console.log("TranscribeService: Get Job info error", err);
+        // console.log("TranscribeService: Get Job info error", err);
+        logger.error("TranscribeService: get job info error: ", err.message);
         reject(err);
         return;
       }
-      console.log("TranscribeService: Get Job info success", data);
+      // console.log("TranscribeService: Get Job info success", data);
+      var jobName = data.TranscriptionJob.TranscriptionJobName;
+      var status = data.TranscriptionJob.TranscriptionJobStatus;
+      logger.info(`Get transcribe job status -> ${jobName}:${status}`);
       resolve(data);
     });
   });
@@ -73,10 +81,11 @@ var getJob = async function (name) {
  */
 var pollGetJob = async function (name) {
   return new Promise(async (resolve, reject) => {
-    var data, status;
+    var data, jobName, status;
 
     // Get job info.
     data = await getJob(name);
+    jobName = data.TranscriptionJob.TranscriptionJobName;
     status = data.TranscriptionJob.TranscriptionJobStatus;
 
     // Switch by job status.
@@ -85,6 +94,7 @@ var pollGetJob = async function (name) {
         reject(data.TranscriptionJob.FailureReason);
         break;
       case "COMPLETED": // SUCCESS
+        logger.info(`Complete transcribe job -> ${jobName}`)
         resolve(data.TranscriptionJob.Transcript.TranscriptFileUri);
         break;
       default:          // RE-TRY
