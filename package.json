@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "test": "jest",
-    "build": "nexe -i ./src/index.js -o ./dist/sample_speach2text -t 14.15.3"
+    "build": "nexe -i ./src/index.js -o ./dist/speach2text -t 14.15.3"
   },
   "repository": {
     "type": "git",
