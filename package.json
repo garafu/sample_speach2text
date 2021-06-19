@@ -4,7 +4,8 @@
   "description": "Sample Speach to Text API Application.",
   "main": "src/index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "nexe -i ./src/index.js -o ./dist/sample_speach2text -t 14.15.3"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,6 @@
   "devDependencies": {
     "eslint": "^7.28.0",
     "jest": "^27.0.4",
-    "nexe": "^4.0.0-beta.18"
+    "nexe": "^3.3.6"
   }
 }

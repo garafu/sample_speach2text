@@ -15,7 +15,7 @@
       "envFile": "${workspaceFolder}/.env",
       "args": [
         // "/path/to/voice.mp3",
-        "D:/Work/GitHub/sample_speach2text/tmp/ibm/public_audio_ja-JP_Broadband-sample.wav",
+        "${workspaceFolder}/tmp/ibm/public_audio_ja-JP_Broadband-sample.wav",
         "音声",
         "認識"
       ]

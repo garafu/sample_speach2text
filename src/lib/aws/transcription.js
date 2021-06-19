@@ -1,9 +1,3 @@
-const { PROFILE, REGION } = require("../../config/app.config.js").CREDENTIALS;
-// const AWS = require("aws-sdk");
-// AWS.config.update({
-//   credentials: new AWS.SharedIniFileCredentials({ profile: PROFILE }),
-//   region: REGION
-// });
 const aws = require("./aws.js");
 
 /**
@@ -65,9 +59,6 @@ var getJob = async function (name) {
         reject(err);
         return;
       }
-      // var transcriptFileUri = data.TranscriptionJob.Transcript.TranscriptFileUri;
-      // console.log("TranscribeService: Get Job info success", transcriptFileUri);
-      // resolve(transcriptFileUri);
       console.log("TranscribeService: Get Job info success", data);
       resolve(data);
     });

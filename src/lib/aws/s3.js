@@ -1,4 +1,4 @@
-const { S3_BUCKET_NAME } = require("../../config/app.config.js");
+const { AWS_S3_BUCKET_NAME } = require("../../config/app.config.js");
 const fs = require("fs");
 const path = require("path");
 const aws = require("./aws.js");
@@ -19,7 +19,7 @@ var upload = async function (filepath) {
     var s3 = aws.createS3Instance();
 
     var params = {
-      Bucket: S3_BUCKET_NAME,
+      Bucket: AWS_S3_BUCKET_NAME,
       Key: path.basename(filepath),
       Body: reader
     };

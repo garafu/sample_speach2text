@@ -15,6 +15,6 @@ describe("output module", () => {
     output.execute(data);
 
     var calls = console.log.mock.calls;
-    expect(calls[0][0]).toBe(`index: 0\tword: "あ"\twindow: "あああ"`);
+    expect(calls[0][0]).toBe(`index:0\tword:"あ"\twindow:"あああ"`);
   });
 });
