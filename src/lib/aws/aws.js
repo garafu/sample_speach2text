@@ -1,8 +1,8 @@
-const { AWS_CREDENTIALS_PROFILE, AWS_CREDENTIALS_REGION } = require("../../config/app.config.js");
+const { profile, region } = require("../../config/app.config.js").aws;
 const AWS = require("aws-sdk");
 AWS.config.update({
-  credentials: new AWS.SharedIniFileCredentials({ profile: AWS_CREDENTIALS_PROFILE }),
-  region: AWS_CREDENTIALS_REGION
+  credentials: new AWS.SharedIniFileCredentials({ profile }),
+  region
 });
 
 var createS3Instance = function () {

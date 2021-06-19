@@ -1,3 +1,4 @@
+const INTERVAL = require("../../config/app.config.js").app.transcription.polllingInterval;
 const logger = require("../log/logger.js");
 const aws = require("./aws.js");
 
@@ -105,7 +106,7 @@ var pollGetJob = async function (name) {
           } catch (reason) {
             reject(reason);
           }
-        }, 3000);
+        }, INTERVAL);
         break;
     }
   });

@@ -1,7 +1,21 @@
+var value = function (env, val) {
+  return (typeof env !== "undefined" ? env : val);
+};
+
 module.exports = {
-  AWS_CREDENTIALS_PROFILE: process.env.AWS_CREDENTIALS_PROFILE,
-  AWS_CREDENTIALS_REGION: process.env.AWS_CREDENTIALS_REGION,
-  AWS_S3_BUCKET_NAME: process.env.AWS_S3_BUCKET_NAME,
+  aws: {
+    profile: process.env.AWS_CREDENTIALS_PROFILE,
+    region: process.env.AWS_CREDENTIALS_REGION,
+    s3buciketName: process.env.AWS_S3_BUCKET_NAME
+  },
+  app: {
+    transcription: {
+      polllingInterval: parseInt(value(process.env.POLLING_INTERVAL, 3000))
+    },
+    textSearch: {
+      windowMargin: parseInt(value(process.env.WINDOW_MARGIN, 5))
+    }
+  },
   log4js: {
     appenders: {
       ConsoleLogAppender: {
@@ -29,7 +43,7 @@ module.exports = {
           "ConsoleLogAppender",
           "FileLogAppender"
         ],
-        level: "INFO"
+        level: process.env.LOG_LEVEL || "INFO"
       }
     }
   }

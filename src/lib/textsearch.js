@@ -1,4 +1,4 @@
-const WINDOW_MARGIN = 5;
+const WINDOW_MARGIN = require("../config/app.config.js").app.textSearch.windowMargin;
 
 var getWindow = function (text, index, width, margin) {
   var max = text.length;
@@ -26,10 +26,12 @@ var search = function (text, word) {
 var execute = function (text, words) {
   var founds = [];
 
+  // Find specified word
   for (let word of words) {
     founds = founds.concat(search(text, word));
   }
 
+  // Sort by index
   founds.sort((a, b) => {
     if (a.index < b.index) {
       return -1;

@@ -1,10 +1,15 @@
 const output = require("../src/lib/output.js");
+const logger = require("../src/lib/log/logger.js");
 
 describe("output module", () => {
   var input, words, data;
 
   beforeEach(() => {
+    // Mock log methods.
     global.console.log = jest.fn();
+    logger.info = jest.fn();
+    logger.error = jest.fn();
+    // Initialize data.
     input = "吾輩は猫である。名前はまだ無い。どこで生れたかとんと見当がつかぬ。";
     words = ["名前", "猫"]
     data = [
