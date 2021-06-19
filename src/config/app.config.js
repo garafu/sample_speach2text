@@ -16,6 +16,7 @@ module.exports = {
         filename: "./speach2text.log",
         pattern: "yyyyMMdd",
         daysToKeep: 7,
+        keepFileExt: true,
         layout: {
           type: "pattern",
           pattern: "[%d{ISO8601_WITH_TZ_OFFSET}][%p] %m"

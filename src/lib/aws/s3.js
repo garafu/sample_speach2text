@@ -1,7 +1,7 @@
 const { AWS_S3_BUCKET_NAME } = require("../../config/app.config.js");
 const fs = require("fs");
 const path = require("path");
-const logger = require("../logger.js");
+const logger = require("../log/logger.js");
 const aws = require("./aws.js");
 
 /**

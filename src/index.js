@@ -2,7 +2,7 @@ require("dotenv").config();
 const transcription = require("./lib/transcript.js");
 const textsearch = require("./lib/textsearch.js");
 const output = require("./lib/output.js");
-const logger = require("./lib/logger");
+const logger = require("./lib/log/logger");
 
 // Read arguments
 var filepath = process.argv[2];
@@ -16,6 +16,7 @@ logger.info(`Start process with ... input:"${filepath}", keywords:${JSON.stringi
     text = await transcription.execute(filepath);
     founds = textsearch.execute(text, words);
     output.execute(text, words, founds);
+    logger.info("Complete all process !");
   } catch (err) {
     logger.error("Process exit with: ", err.message);
   }

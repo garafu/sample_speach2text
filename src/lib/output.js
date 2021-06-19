@@ -2,7 +2,7 @@ const SEPARATOR = ",";
 const EXT_NAME = ".csv";
 const StreamWriter = require("./io/streamwriter.js");
 const ConsoleWriter = require("./io/consolewriter.js");
-const logger = require("../lib/logger.js");
+const logger = require("./log/logger.js");
 const moment = require("moment");
 
 class Writer {
@@ -35,6 +35,8 @@ var execute = function (input, words, items) {
   var filepath = createFileName();
   var writer = new Writer(filepath);
 
+  logger.info("--- Start output ----------------------------------");
+
   // Output input information.
   writer.writeLine("[Input]");
   writer.writeLine(input);
@@ -52,6 +54,8 @@ var execute = function (input, words, items) {
 
   // Flush output data.
   writer.close();
+
+  logger.info("--- End output ------------------------------------");
 
   return filepath;
 };
