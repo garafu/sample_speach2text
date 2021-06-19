@@ -1,4 +1,5 @@
 const transcript = require("../src/lib/transcript.js");
+const logger = require("../src/lib/logger.js");
 const aws = require("../src/lib/aws/aws.js");
 const s3 = require("../src/lib/aws/s3.js");
 const transcription = require("../src/lib/aws/transcription.js");
@@ -6,6 +7,8 @@ const transcription = require("../src/lib/aws/transcription.js");
 describe("transcript module", () => {
   beforeEach(() => {
     global.console.log = jest.fn();
+    logger.info = jest.fn();
+    logger.error = jest.fn();
   });
 
   describe("s3", () => {
