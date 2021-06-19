@@ -10,9 +10,13 @@ logger.info(`Start process with ... input:"${filepath}", keywords:${JSON.stringi
 
 // Execute main
 (async () => {
-  var text, founds;
-  text = await transcription.execute(filepath);
-  founds = textsearch.execute(text, words);
-  output.execute(founds);
+  try {
+    var text, founds;
+    text = await transcription.execute(filepath);
+    founds = textsearch.execute(text, words);
+    output.execute(founds);
+  } catch (err) {
+    logger.error("Process exit with: ", err.message);
+  }
 })();
 
